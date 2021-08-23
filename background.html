@@ -59,11 +59,23 @@
             let g = parseInt(gInput.value);
             let b = parseInt(bInput.value);
             generated = "rgb(" + r + "," + g + "," + b + ")";
-            let hexacolor = "#" + r.toString(16) + g.toString(16) + b.toString(16);
             document.getElementById("hatter").style.backgroundColor = generated;
             document.getElementById("ramount").innerHTML = rInput.value;
             document.getElementById("gamount").innerHTML = gInput.value;
             document.getElementById("bamount").innerHTML = bInput.value;
+            if (r < 16) {
+                formattedR = "0" + r.toString(16)
+            }
+            else { formattedR = r.toString(16) };
+            if (g < 16) {
+                formattedG = "0" + g.toString(16)
+            }
+            else { formattedG = g.toString(16) };
+            if (b < 16) {
+                formattedB = "0" + b.toString(16)
+            }
+            else { formattedB = b.toString(16) };
+            let hexacolor = "#" + formattedR + formattedG + formattedB;
             document.getElementById("colorhexavalue").innerHTML = hexacolor;
         }
     </script>
