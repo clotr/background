@@ -16,40 +16,42 @@
             max-width: 350px;
             margin-right: auto;
             margin-left: auto;
-            
+            display: block;
+
         }
 
         #hatter {
             background-color: generated;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
+
+        form label {
+            display: block;
+        }
     </style>
 </head>
 
-<body id="hatter">
+<body onload="color()" id="hatter">
     <form action="">
         <fieldset id="doboz">
             <p>Add meg a színmennyiségeket! (0-255)</p>
-            <label for="red">Vörös</label><br>
-            <input type="range" oninput="color()" name="red" min="0" max="255" value="255">
-            <span id="ramount">255</span>
-            <br>
-            <label for="red">Zöld</label><br>
-            <input type="range" oninput="color()" name="green" min="0" max="255" value="255">
-            <span id="gamount">255</span>
-            <br>
-            <label for="red">Kék</label><br>
-            <input type="range" oninput="color()" name="blue" min="0" max="255" value="255">
-            <span id="bamount">255</span>
-            <br><br>
+            <label for="red">Vörös</label>
+            <input type="range" oninput="color()" name="red" min="0" max="255" value="150">
+            <span id="ramount">150</span>
+            <label for="green">Zöld</label>
+            <input type="range" oninput="color()" name="green" min="0" max="255" value="150">
+            <span id="gamount">150</span>
+            <label for="blue">Kék</label>
+            <input type="range" oninput="color()" name="blue" min="0" max="255" value="150">
+            <span id="bamount">150</span>
+            <p id="colorhexavalue"></p>
 
         </fieldset>
     </form>
 
     <script>
-
         function color() {
-            let generated = "rgb(255,255,255)";
+            let generated = "rgb( 150, 150, 150)";
             let rInput = document.querySelector("form input[name='red']");
             let gInput = document.querySelector("form input[name='green']");
             let bInput = document.querySelector("form input[name='blue']");
@@ -57,10 +59,12 @@
             let g = parseInt(gInput.value);
             let b = parseInt(bInput.value);
             generated = "rgb(" + r + "," + g + "," + b + ")";
+            let hexacolor = "#" + r.toString(16) + g.toString(16) + b.toString(16);
             document.getElementById("hatter").style.backgroundColor = generated;
             document.getElementById("ramount").innerHTML = rInput.value;
             document.getElementById("gamount").innerHTML = gInput.value;
             document.getElementById("bamount").innerHTML = bInput.value;
+            document.getElementById("colorhexavalue").innerHTML = hexacolor;
         }
     </script>
 </body>
