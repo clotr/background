@@ -35,43 +35,46 @@
 
 
         function drawTable() {
-            var rowN = document.getElementById("rowNumber");
-            var rowNValue = parseInt(rowN.value);
-            var colN = document.getElementById("colNumber");
-            var colNValue = parseInt(colN.value);
-            var parent = document.getElementById("table");
-            var table = document.createElement("table");
-            parent.appendChild(table);
-            table.setAttribute("id", "parenttable");
-            for (let i = 0; i < rowNValue; i++) {
-                let tr = document.createElement("tr");
-                for (let j = 0; j < colNValue; j++) {
-                    let td = document.createElement("td");
-                    tr.appendChild(td);
+            var check = document.querySelector("#table");
+            if (check.hasChildNodes()) { return } else {
+                var rowN = document.getElementById("rowNumber");
+                var rowNValue = parseInt(rowN.value);
+                var colN = document.getElementById("colNumber");
+                var colNValue = parseInt(colN.value);
+                var parent = document.getElementById("table");
+                var table = document.createElement("table");
+                parent.appendChild(table);
+                table.setAttribute("id", "parenttable");
+                for (let i = 0; i < rowNValue; i++) {
+                    let tr = document.createElement("tr");
+                    for (let j = 0; j < colNValue; j++) {
+                        let td = document.createElement("td");
+                        tr.appendChild(td);
+                    }
+                    table.appendChild(tr);
                 }
-                table.appendChild(tr);
             }
         }
         function deleteTable() {
             var parent = document.getElementById("table");
             var table = document.getElementById("parenttable");
             parent.removeChild(table);
-         }
-         function fillTable() {
+        }
+        function fillTable() {
             var rowN = document.getElementById("rowNumber");
             var rowNValue = parseInt(rowN.value);
             var colN = document.getElementById("colNumber");
             var colNValue = parseInt(colN.value);
             var parent = document.getElementById("table");
             var table = document.createElement("table");
-            for (var i = 1; i < rowNValue+1; i++) {
-                for (var j = 1; j < colNValue+1; j++) {
+            for (var i = 1; i < rowNValue + 1; i++) {
+                for (var j = 1; j < colNValue + 1; j++) {
                     randomData = Math.random();
-                    document.querySelector(`table#parenttable tr:nth-child(${i}) td:nth-child(${j})`).innerHTML=randomData.toFixed(3);
+                    document.querySelector(`table#parenttable tr:nth-child(${i}) td:nth-child(${j})`).innerHTML = randomData.toFixed(3);
                 }
-                
+
             }
-         }
+        }
     </script>
 </body>
 
