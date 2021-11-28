@@ -91,13 +91,22 @@
             let r = parseInt(rInput.value);
             let g = parseInt(gInput.value);
             let b = parseInt(bInput.value);
-                   
-                let bk = 1 - Math.max(r / 255, g / 255, b / 255)
-            
-            let c = parseInt((1 - r / 255 - bk) / (1 - bk) * 100);
-            let m = parseInt((1 - g / 255 - bk) / (1 - bk) * 100);
-            let y = parseInt((1 - b / 255 - bk) / (1 - bk) * 100);
-            let bl = parseInt((1 - Math.max(r / 255, g / 255, b / 255)) * 100);
+            let bk = 1 - Math.max(r / 255, g / 255, b / 255);
+            let c;
+            let m;
+            let y;
+            let bl;
+            if (bk == 1) {
+                c = 100;
+                m = 100;
+                y = 100;
+                bl = 100;
+            } else {
+                c = parseInt((1 - r / 255 - bk) / (1 - bk) * 100);
+                m = parseInt((1 - g / 255 - bk) / (1 - bk) * 100);
+                y = parseInt((1 - b / 255 - bk) / (1 - bk) * 100);
+                bl = parseInt((1 - Math.max(r / 255, g / 255, b / 255)) * 100)
+            };
             generated = "rgb(" + r + "," + g + "," + b + ")";
             document.getElementById("hatter").style.backgroundColor = generated;
             document.getElementById("ramount").innerHTML = rInput.value;
@@ -141,7 +150,6 @@
             let r = parseInt(255 * (1 - c / 100) * (1 - bk / 100));
             let g = parseInt(255 * (1 - m / 100) * (1 - bk / 100));
             let b = parseInt(255 * (1 - y / 100) * (1 - bk / 100));
-
             document.getElementById("ramount").innerHTML = r;
             rInput.value = r;
             document.getElementById("gamount").innerHTML = g;
@@ -153,20 +161,6 @@
             document.getElementById("yamount").innerHTML = yInput.value + "%";
             document.getElementById("kamount").innerHTML = bkInput.value + "%";
             color();
-            /* if (r < 16) {
-                formattedR = "0" + r.toString(16)
-            }
-            else { formattedR = r.toString(16) };
-            if (g < 16) {
-                formattedG = "0" + g.toString(16)
-            }
-            else { formattedG = g.toString(16) };
-            if (b < 16) {
-                formattedB = "0" + b.toString(16)
-            }
-            else { formattedB = b.toString(16) };
-            let hexacolor = "#" + formattedR + formattedG + formattedB;
-            document.getElementById("colorhexavalue").innerHTML = hexacolor; */
         }
     </script>
 </body>
