@@ -20,6 +20,18 @@
 
         }
 
+        #doboz2 {
+            background-color: white;
+            border-width: 2px 2px;
+            border-color: black;
+            border-style: solid;
+            max-width: 350px;
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+
+        }
+
         #hatter {
             background-color: generated;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -34,17 +46,34 @@
 <body onload="color()" id="hatter">
     <form action="">
         <fieldset id="doboz">
-            <p>Add meg a színmennyiségeket! (0-255)</p>
+            <p>Add meg az RGB színmennyiségeket!</p>
             <label for="red">Vörös</label>
-            <input type="range" oninput="color()" name="red" min="0" max="255" value="150">
-            <span id="ramount">150</span>
+            <input type="range" oninput="color()" name="red" min="0" max="255" value="255">
+            <span id="ramount">255</span>
             <label for="green">Zöld</label>
-            <input type="range" oninput="color()" name="green" min="0" max="255" value="150">
-            <span id="gamount">150</span>
+            <input type="range" oninput="color()" name="green" min="0" max="255" value="255">
+            <span id="gamount">255</span>
             <label for="blue">Kék</label>
-            <input type="range" oninput="color()" name="blue" min="0" max="255" value="150">
-            <span id="bamount">150</span>
+            <input type="range" oninput="color()" name="blue" min="0" max="255" value="255">
+            <span id="bamount">255</span>
             <p id="colorhexavalue"></p>
+
+        </fieldset>
+
+        <fieldset id="doboz2">
+            <p>Add meg a CMYK színmennyiségeket!</p>
+            <label for="cyan">Türkiz</label>
+            <input type="range" oninput="color2()" name="cyan" min="0" max="100" value="0">
+            <span id="camount">0</span>
+            <label for="magenta">Bíbor</label>
+            <input type="range" oninput="color2()" name="magenta" min="0" max="100" value="0">
+            <span id="mamount">0</span>
+            <label for="yellow">Sárga</label>
+            <input type="range" oninput="color2()" name="yellow" min="0" max="100" value="0">
+            <span id="yamount">0</span>
+            <label for="black">Fekete</label>
+            <input type="range" oninput="color2()" name="black" min="0" max="100" value="0">
+            <span id="kamount">0</span>
 
         </fieldset>
     </form>
@@ -55,14 +84,33 @@
             let rInput = document.querySelector("form input[name='red']");
             let gInput = document.querySelector("form input[name='green']");
             let bInput = document.querySelector("form input[name='blue']");
+            let cInput = document.querySelector("form input[name='cyan']");
+            let mInput = document.querySelector("form input[name='magenta']");
+            let yInput = document.querySelector("form input[name='yellow']");
+            let bkInput = document.querySelector("form input[name='black']");
             let r = parseInt(rInput.value);
             let g = parseInt(gInput.value);
             let b = parseInt(bInput.value);
+                   
+                let bk = 1 - Math.max(r / 255, g / 255, b / 255)
+            
+            let c = parseInt((1 - r / 255 - bk) / (1 - bk) * 100);
+            let m = parseInt((1 - g / 255 - bk) / (1 - bk) * 100);
+            let y = parseInt((1 - b / 255 - bk) / (1 - bk) * 100);
+            let bl = parseInt((1 - Math.max(r / 255, g / 255, b / 255)) * 100);
             generated = "rgb(" + r + "," + g + "," + b + ")";
             document.getElementById("hatter").style.backgroundColor = generated;
             document.getElementById("ramount").innerHTML = rInput.value;
             document.getElementById("gamount").innerHTML = gInput.value;
             document.getElementById("bamount").innerHTML = bInput.value;
+            document.getElementById("camount").innerHTML = c + "%";
+            cInput.value = c;
+            document.getElementById("mamount").innerHTML = m + "%";
+            mInput.value = m;
+            document.getElementById("yamount").innerHTML = y + "%";
+            yInput.value = y;
+            document.getElementById("kamount").innerHTML = bl + "%";
+            bkInput.value = bl;
             if (r < 16) {
                 formattedR = "0" + r.toString(16)
             }
@@ -77,6 +125,48 @@
             else { formattedB = b.toString(16) };
             let hexacolor = "#" + formattedR + formattedG + formattedB;
             document.getElementById("colorhexavalue").innerHTML = hexacolor;
+        }
+        function color2() {
+            let rInput = document.querySelector("form input[name='red']");
+            let gInput = document.querySelector("form input[name='green']");
+            let bInput = document.querySelector("form input[name='blue']");
+            let cInput = document.querySelector("form input[name='cyan']");
+            let mInput = document.querySelector("form input[name='magenta']");
+            let yInput = document.querySelector("form input[name='yellow']");
+            let bkInput = document.querySelector("form input[name='black']");
+            let c = parseInt(cInput.value);
+            let m = parseInt(mInput.value);
+            let y = parseInt(yInput.value);
+            let bk = parseInt(bkInput.value);
+            let r = parseInt(255 * (1 - c / 100) * (1 - bk / 100));
+            let g = parseInt(255 * (1 - m / 100) * (1 - bk / 100));
+            let b = parseInt(255 * (1 - y / 100) * (1 - bk / 100));
+
+            document.getElementById("ramount").innerHTML = r;
+            rInput.value = r;
+            document.getElementById("gamount").innerHTML = g;
+            gInput.value = g;
+            document.getElementById("bamount").innerHTML = b;
+            bInput.value = b;
+            document.getElementById("camount").innerHTML = cInput.value + "%";
+            document.getElementById("mamount").innerHTML = mInput.value + "%";
+            document.getElementById("yamount").innerHTML = yInput.value + "%";
+            document.getElementById("kamount").innerHTML = bkInput.value + "%";
+            color();
+            /* if (r < 16) {
+                formattedR = "0" + r.toString(16)
+            }
+            else { formattedR = r.toString(16) };
+            if (g < 16) {
+                formattedG = "0" + g.toString(16)
+            }
+            else { formattedG = g.toString(16) };
+            if (b < 16) {
+                formattedB = "0" + b.toString(16)
+            }
+            else { formattedB = b.toString(16) };
+            let hexacolor = "#" + formattedR + formattedG + formattedB;
+            document.getElementById("colorhexavalue").innerHTML = hexacolor; */
         }
     </script>
 </body>
